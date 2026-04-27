@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ikon mata tertutup (password disembunyikan) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@color/gray_text"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M17.94,17.94A10.07,10.07 0,0 1,12 20C7,20 2.73,16.39 1,12a10.09,10.09 0,0 1,2.06,-3.94" />
+
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@color/gray_text"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M9.9,4.24A9.12,9.12 0,0 1,12 4C17,4 21.27,7.61 23,12a9.58,9.58 0,0 1,-1.42,2.61" />
+
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@color/gray_text"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M1,1L23,23" />
+
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@color/gray_text"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M10.73,10.73a3,3 0,0 0,4.04 4.04" />
+
+</vector>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!--judul dan subtitle sesuai dgn file figma-->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/register_title"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_bold" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/register_subtitle"
+            android:textColor="@color/gray_text"
+            android:textSize="14sp"
+            android:fontFamily="@font/plus_jakarta_sans_regular" />
+
+        <!--field untuk memasukkan nama-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/label_name"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_semibold" />
+
+        <EditText
+            android:id="@+id/edt_name"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input_field"
+            android:hint="@string/hint_name"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray_hint"
+            android:fontFamily="@font/plus_jakarta_sans_regular"
+            android:lines="1" />
+
+        <!-- field untuk memasukkan email-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_email"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_semibold" />
+
+        <EditText
+            android:id="@+id/edt_email"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input_field"
+            android:hint="@string/hint_email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray_hint"
+            android:fontFamily="@font/plus_jakarta_sans_regular"
+            android:lines="1" />
+
+        <!-- field untuk memasukkan password-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_password"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_semibold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_input_field"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="52dp"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_hint"
+                android:fontFamily="@font/plus_jakarta_sans_regular"
+                android:lines="1" />
+
+            <ImageView
+                android:id="@+id/iv_toggle_password"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_eye_off"
+                android:contentDescription="@string/toggle_password" />
+
+        </RelativeLayout>
+
+        <!-- konfirmasi password-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_confirm_password"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_semibold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/edt_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_input_field"
+                android:hint="@string/hint_confirm_password"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="52dp"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_hint"
+                android:fontFamily="@font/plus_jakarta_sans_regular"
+                android:lines="1" />
+
+            <ImageView
+                android:id="@+id/iv_toggle_confirm_password"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_eye_off"
+                android:contentDescription="@string/toggle_password" />
+
+        </RelativeLayout>
+
+        <!-- tombol "ingat saya?" (aslinya opsional, tapi ada di desain)-->
+        <!-- lebih mending dimasukkan -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_remember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/green_primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/remember_me"
+                android:textColor="@color/gray_text"
+                android:textSize="13sp"
+                android:fontFamily="@font/plus_jakarta_sans_regular" />
+
+        </LinearLayout>
+
+        <!-- btn untuk mendaftar-->
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_button_green"
+            android:text="@string/btn_register"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_bold" />
+
+        <!-- (divider))-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/gray_divider" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/or_login_with"
+                android:textColor="@color/gray_text"
+                android:textSize="13sp"
+                android:fontFamily="@font/plus_jakarta_sans_regular" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/gray_divider" />
+
+        </LinearLayout>
+
+        <!-- TODO LOGO GOOGLE DAN APPLE MASIH BELUM BISA MUNCUL -->
+        <!-- FILE-FILE PNG ADA DI res/drawable -->
+
+        <!-- tombol masuk dgn google dan apple -->
+        <Button
+            android:id="@+id/btn_google"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_button_outline"
+            android:drawableStart="@drawable/ic_google"
+            android:drawablePadding="12dp"
+            android:paddingStart="24dp"
+            android:text="@string/btn_google"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/plus_jakarta_sans_semibold" />
+        <Button
+            android:id="@+id/btn_apple"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_button_outline"
+            android:drawableStart="@drawable/ic_apple"
+            android:drawablePadding="12dp"
+            android:paddingStart="24dp"
+            android:text="@string/btn_apple"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/plus_jakarta_sans_semibold" />
+
+        <!-- tombol untuk inten ke halaman login-->
+        <!-- kalau di halaman login malah sebaliknya -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/have_account"
+                android:textColor="@color/gray_text"
+                android:textSize="14sp"
+                android:fontFamily="@font/plus_jakarta_sans_regular" />
+
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/login_now"
+                android:textColor="@color/green_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/plus_jakarta_sans_bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
