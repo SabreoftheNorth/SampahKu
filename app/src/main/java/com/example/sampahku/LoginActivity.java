@@ -19,11 +19,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText editEmail;
     private EditText editPassword;
     private Button btnLogin;
-    private Button btnGoogle;
-    private Button btnApple;
     private TextView tvFgtPassword;
     private TextView tvRegister;
     private ImageView ivTogglePassword;
+    private ImageView ivGoogle;
+    private ImageView ivApple;
 
     private boolean isPasswordVisible = false;
 
@@ -42,43 +42,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editEmail = findViewById(R.id.edt_email);
         editPassword = findViewById(R.id.edt_password);
         btnLogin = findViewById(R.id.btn_login);
-        btnGoogle = findViewById(R.id.btn_google);
-        btnApple = findViewById(R.id.btn_apple);
         tvFgtPassword = findViewById(R.id.tv_forgot_password);
         tvRegister = findViewById(R.id.tv_register);
         ivTogglePassword = findViewById(R.id.iv_toggle_password);
+        ivGoogle = findViewById(R.id.iv_google);
+        ivApple = findViewById(R.id.iv_apple);
 
         // set listener, menggunakan 'setOnClickListener'
         btnLogin.setOnClickListener(this);
-        btnGoogle.setOnClickListener(this);
-        btnApple.setOnClickListener(this);
         tvFgtPassword.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
         ivTogglePassword.setOnClickListener(this);
+        ivGoogle.setOnClickListener(this);
+        ivApple.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_login) {
             handleLogin();
-
-        } else if (v.getId() == R.id.btn_google) {
-            // TODO: Implementasi login Google
+        } else if (v.getId() == R.id.iv_google) {
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-
-        } else if (v.getId() == R.id.btn_apple) {
-            // TODO: Implementasi login Apple
+        } else if (v.getId() == R.id.iv_apple) {
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-
         } else if (v.getId() == R.id.tv_forgot_password) {
             // TODO: Navigasi ke halaman lupa password
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-
         } else if (v.getId() == R.id.tv_register) {
             // menggunakan inten untuk pindah ke halaman Register (secara eksplisit)
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
-
         } else if (v.getId() == R.id.iv_toggle_password) {
             togglePasswordVisibility();
         }

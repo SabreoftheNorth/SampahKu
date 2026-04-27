@@ -23,12 +23,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editPassword;
     private EditText editConfirmPassword;
     private Button btnRegister;
-    private Button btnGoogle;
-    private Button btnApple;
     private TextView tvLogin;
     private ImageView ivTogglePassword;
     private ImageView ivToggleConfirmPassword;
-    private CheckBox cbRemember;
+    private ImageView ivGoogle;
+    private ImageView ivApple;
+    private ImageView ivBack; // tombol back hijau utk balik ke halaman login
+
 
     private boolean isPasswordVisible = false;
     private boolean isConfirmPasswordVisible = false;
@@ -50,42 +51,40 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editPassword  = findViewById(R.id.edt_password);
         editConfirmPassword = findViewById(R.id.edt_confirm_password);
         btnRegister = findViewById(R.id.btn_register);
-        btnGoogle  = findViewById(R.id.btn_google);
-        btnApple = findViewById(R.id.btn_apple);
         tvLogin = findViewById(R.id.tv_login);
         ivTogglePassword = findViewById(R.id.iv_toggle_password);
         ivToggleConfirmPassword = findViewById(R.id.iv_toggle_confirm_password);
-        cbRemember = findViewById(R.id.cb_remember);
+        ivGoogle = findViewById(R.id.iv_google);
+        ivApple  = findViewById(R.id.iv_apple);
+        ivBack = findViewById(R.id.iv_back);
 
         // setOnClickListener
         btnRegister.setOnClickListener(this);
-        btnGoogle.setOnClickListener(this);
-        btnApple.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
         ivTogglePassword.setOnClickListener(this);
         ivToggleConfirmPassword.setOnClickListener(this);
+        ivGoogle.setOnClickListener(this);
+        ivApple.setOnClickListener(this);
+        ivBack.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_register) {
             handleRegister();
-
-        } else if (v.getId() == R.id.btn_google) {
+        } else if (v.getId() == R.id.iv_google) {
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-
-        } else if (v.getId() == R.id.btn_apple) {
+        } else if (v.getId() == R.id.iv_apple) {
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-
         } else if (v.getId() == R.id.tv_login) {
             // inten untuk kembali ke halaman login (LoginActivity)
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
-
         } else if (v.getId() == R.id.iv_toggle_password) {
             togglePasswordVisibility();
-
+        } else if (v.getId() == R.id.iv_back) {
+            finish(); // Kembali ke halaman sebelumnya (LoginActivity)
         } else if (v.getId() == R.id.iv_toggle_confirm_password) {
             toggleConfirmPasswordVisibility();
         }
