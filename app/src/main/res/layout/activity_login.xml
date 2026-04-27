@@ -10,22 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="48dp"
+        android:paddingBottom="24dp">
 
-        <!--title and subtitle yang sesuai dgn file figma-->
+    <!--title and subtitle yang sesuai dgn file figma-->
         <TextView
-            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:text="@string/login_title"
             android:textColor="@color/black"
-            android:textSize="28sp"
+            android:textSize="32sp"
             android:textStyle="bold"
             android:fontFamily="@font/plus_jakarta_sans_bold" />
 
         <TextView
-            android:id="@+id/tv_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -33,7 +33,6 @@
             android:textColor="@color/gray_text"
             android:textSize="14sp"
             android:fontFamily="@font/plus_jakarta_sans_regular" />
-
 
         <!-- field pengisian email -->
         <TextView
@@ -103,22 +102,42 @@
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_eye_off"
                 android:contentDescription="@string/toggle_password" />
-
         </RelativeLayout>
 
-        <!-- tombol forgot passwordnya -->
-        <TextView
-            android:id="@+id/tv_forgot_password"
-            android:layout_width="wrap_content"
+        <!-- tombol "ingat saya" dan "lupa kata sandi?" -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="8dp"
-            android:text="@string/forgot_password"
-            android:textColor="@color/green_primary"
-            android:textSize="13sp"
-            android:fontFamily="@font/plus_jakarta_sans_semibold" />
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <!-- tombol login -->
+            <RadioButton
+                android:id="@+id/rb_remember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/green_primary"
+                android:text="@string/remember_me"
+                android:textColor="@color/gray_text"
+                android:textSize="13sp"
+                android:fontFamily="@font/plus_jakarta_sans_regular" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forgot_password"
+                android:textColor="@color/green_primary"
+                android:textSize="13sp"
+                android:fontFamily="@font/plus_jakarta_sans_semibold" />
+        </LinearLayout>
+
+        <!-- tombol untuk "MASUK" -->
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
@@ -128,23 +147,23 @@
             android:text="@string/btn_login"
             android:textColor="@color/white"
             android:textSize="15sp"
+            android:letterSpacing="0.08"
             android:textStyle="bold"
             android:fontFamily="@font/plus_jakarta_sans_bold" />
 
-        <!-- "Atau masuk dengan" (divider)-->
+        <!-- divider "atau masuk dengan" -->
+        <!-- transisi ke login pakai google/apple -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"
                 android:background="@color/gray_divider" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -154,49 +173,45 @@
                 android:textColor="@color/gray_text"
                 android:textSize="13sp"
                 android:fontFamily="@font/plus_jakarta_sans_regular" />
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"
                 android:background="@color/gray_divider" />
-
         </LinearLayout>
 
-        <!-- TODO LOGO GOOGLE DAN APPLE MASIH BELUM BISA MUNCUL -->
-        <!-- FILE-FILE PNG ADA DI res/drawable -->
-
-        <!--tombol login dgn google (ada logonya)-->
+        <!-- ini tombol dipakai untuk login dengan apple/google -->
+        <!-- semoga bisa -->
         <Button
             android:id="@+id/btn_google"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/bg_button_outline"
+            android:background="@drawable/bg_button_green"
             android:drawableStart="@drawable/ic_google"
             android:drawablePadding="12dp"
-            android:paddingStart="24dp"
             android:text="@string/btn_google"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="14sp"
-            android:fontFamily="@font/plus_jakarta_sans_semibold" />
-
-        <!--tombol login dgn apple-->
+            android:letterSpacing="0.08"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_bold" />
         <Button
             android:id="@+id/btn_apple"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/bg_button_outline"
+            android:background="@drawable/bg_button_green"
             android:drawableStart="@drawable/ic_apple"
             android:drawablePadding="12dp"
-            android:paddingStart="24dp"
             android:text="@string/btn_apple"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="14sp"
-            android:fontFamily="@font/plus_jakarta_sans_semibold" />
+            android:letterSpacing="0.08"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_bold" />
 
-        <!-- tombol inten untuk masuk ke halaman register-->
+        <!-- tombol untuk "Belum Punya Akun?" -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -223,9 +238,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/plus_jakarta_sans_bold" />
-
         </LinearLayout>
-
     </LinearLayout>
-
 </ScrollView>
+
