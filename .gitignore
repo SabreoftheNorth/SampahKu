@@ -1,18 +1,28 @@
+# untuk gradle
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
+.gradle/
 /build
-/captures
-.externalNativeBuild
-.cxx
+**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# ini penting untuk di-ignore karena berisi path ke SDK yang bisa berbeda-beda di setiap komputer
 local.properties
+local.gradle.properties
+
+.idea/caches
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/shelf/
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+*.ipr
+*.iws
 
 # macOS
 .DS_Store
@@ -21,12 +31,28 @@ local.properties
 ._*
 .Spotlight-V100
 .Trashes
- 
+
 # Windows
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
- 
+
 # Linux
 *~
+
+/captures
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
+.externalNativeBuild
+.cxx
+
+*.keystore
+*.jks
+keystore.properties
+secrets.properties
+google-services.json
