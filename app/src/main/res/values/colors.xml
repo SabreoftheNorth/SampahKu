@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- warna hijau sesuai dengan desain figma sampahku -->
+    <color name="green_primary">#2E7D32</color> <!--untuk appbar -->
+    <color name="green_light">#4CAF50</color> <!-- accent colornya-->
+    <color name="green_dark">#1B5E20</color> <!-- warna status bar -->
+    <color name="green_card">#E8F5E9</color> <!-- warna background card-->
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray_text">#757575</color>
 </resources>
