@@ -56,4 +56,11 @@
 
     <!-- Lainnya -->
     <string name="coming_soon">Fitur segera hadir</string>
+
+    <!-- utk yang ada di halaman QR -->
+    <string name="qr_title">Deposit QR</string>
+    <string name="qr_show_title">Tunjukan Kode QR Mu!</string>
+    <string name="qr_show_subtitle">Tunjukan kode QR ini pada mesin deposit.</string>
+    <string name="qr_expire_label">Kode Akan Kadarluasa Dalam 01:30</string>
+    <string name="qr_resend">Resend QR Code</string>
 </resources>

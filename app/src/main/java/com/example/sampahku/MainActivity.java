@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent; // untuk import fungsi Intent
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,8 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (v.getId() == R.id.nav_reward) {
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
 
+            //menggunakan inten untuk menuju ke halaman scan QR
         } else if (v.getId() == R.id.nav_qr) {
-            Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, QrActivity.class);
+            startActivity(intent);
 
         } else if (v.getId() == R.id.nav_statistik) {
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();

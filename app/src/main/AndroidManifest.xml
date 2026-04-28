@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SampahKu">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".QrActivity"
             android:exported="false"
             android:theme="@style/Theme.SampahKu.Splash" />
-        <!-- SplashScreen = halaman pertama yang ada, muncul 3 detik -->
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SampahKu.Splash" /> <!-- SplashScreen = halaman pertama yang ada, muncul 3 detik -->
         <activity
             android:name=".SplashScreen"
             android:exported="true"
@@ -27,8 +30,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:theme="@style/Theme.SampahKu.Splash" />
-        <!-- MainActivity = halaman utama yang muncul sehabis halaman login -->
+            android:theme="@style/Theme.SampahKu.Splash" /> <!-- MainActivity = halaman utama yang muncul sehabis halaman login -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />

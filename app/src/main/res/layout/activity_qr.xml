@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- untuk headernya -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_back_green"
+            android:contentDescription="Kembali" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/qr_title"
+            android:textColor="@color/green_primary"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_bold" />
+
+    </LinearLayout>
+
+    <!-- konten yg ada di tengah-->
+    <LinearLayout
+        android:id="@+id/content_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingTop="16dp">
+
+        <!-- "Tunjukan Kode QR Mu!" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/qr_show_title"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_bold" />
+
+        <!-- subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/qr_show_subtitle"
+            android:textColor="@color/gray_text"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:fontFamily="@font/plus_jakarta_sans_regular" />
+
+        <!--gambar kode qr via drawable -->
+        <ImageView
+            android:id="@+id/iv_qr_code"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/img_qr_code"
+            android:contentDescription="@string/qr_title"
+            android:scaleType="fitCenter" />
+        <TextView
+            android:id="@+id/tv_countdown_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/qr_expire_label"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_bold" />
+
+    </LinearLayout>
+
+    <!-- tombol resend kode QR -->
+    <LinearLayout
+        android:id="@+id/btn_resend"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/bg_button_green"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_refresh"
+            android:contentDescription="Resend" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/qr_resend"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>
