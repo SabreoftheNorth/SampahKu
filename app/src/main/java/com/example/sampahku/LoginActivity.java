@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(this, getString(R.string.error_password_mismatch), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.error_login_invalid), Toast.LENGTH_SHORT).show();
             }
         }
     }

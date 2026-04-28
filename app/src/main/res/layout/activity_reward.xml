@@ -22,7 +22,7 @@
             android:orientation="vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:paddingTop="24dp">
+            android:paddingTop="48dp">
 
             <!-- header -->
             <!-- isinya judul dan tombol back (namun masih bermasalah :( -->

@@ -20,7 +20,7 @@
             android:orientation="vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:paddingTop="24dp"
+            android:paddingTop="48dp"
             android:paddingBottom="24dp">
 
             <!-- Header "Halo, Rakha" dan motif-motif lainnya-->
@@ -76,7 +76,9 @@
                         android:background="@drawable/bg_circle_gray"
                         android:src="@drawable/ic_user"
                         android:padding="8dp"
-                        android:contentDescription="Profil" />
+                        android:contentDescription="Profil"
+                        android:clickable="true"
+                        android:focusable="true"/>
 
                 </LinearLayout>
             </RelativeLayout>

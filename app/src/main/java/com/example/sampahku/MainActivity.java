@@ -6,6 +6,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent; // untuk import fungsi Intent
+import android.graphics.Typeface;
+import android.widget.ImageView;
 
 // saya justru masih ragu ini library kebanyakan dipake atau gk ya?
 // TODO FIGURE SOMETHING OUT OR SMTH IDK
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navQr = findViewById(R.id.nav_qr);
         navStatistik = findViewById(R.id.nav_statistik);
         navProfil = findViewById(R.id.nav_profil);
+        ImageView ivProfile = findViewById(R.id.iv_profile);
 
         tblTukarPoin = findViewById(R.id.btn_tukar_poin);
 
@@ -56,12 +59,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navStatistik.setOnClickListener(this);
         navProfil.setOnClickListener(this);
         tblTukarPoin.setOnClickListener(this);
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ProfilActivity.class));
+            }
+        });
 
         //set data-data utk item aktivitas
         // karena memakai <include> maka saya perlu set
         // secara manual
         setupAktivitasItems();
         setupEdukasiItems();
+        setActiveNav();
     }
 
     @Override
@@ -72,19 +82,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
             // menggunakan inten untuk menuju ke halaman Reward
         } else if (v.getId() == R.id.nav_reward) {
-            Intent intent = new Intent(MainActivity.this, RewardActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(MainActivity.this, RewardActivity.class));
 
             //menggunakan inten untuk menuju ke halaman scan QR
         } else if (v.getId() == R.id.nav_qr) {
-            Intent intent = new Intent(MainActivity.this, QrActivity.class);
-            startActivity(intent);
-
+            startActivity(new Intent(MainActivity.this, QrActivity.class));
+        // mari pakai inten untuk menuju ke halaman statistik!!!!!!!!
         } else if (v.getId() == R.id.nav_statistik) {
-            Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, StatistikActivity.class));
 
+            // inten ke halaman profil
         } else if (v.getId() == R.id.nav_profil) {
-            Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, ProfilActivity.class));
 
         } // else if (v.getId() == R.id.tbl_tukar_poin) {
             // Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
@@ -126,5 +135,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ((TextView) item3.findViewById(R.id.tv_judul_edukasi)).setText("Cara memilah sampah plastik");
         ((TextView) item3.findViewById(R.id.tv_desc_edukasi))
                 .setText("Pisahkan sesuai jenis agar poin maksimal");
+    }
+
+    // semoga bisa mengatasi masalah navbar punya warna berbeda setiap halaman
+    private void setActiveNav() {
+        setNavColor(R.id.nav_home,      R.color.green_primary, Typeface.BOLD);
+        setNavColor(R.id.nav_reward,    R.color.gray_text,     Typeface.NORMAL);
+        setNavColor(R.id.nav_statistik, R.color.gray_text,     Typeface.NORMAL);
+        setNavColor(R.id.nav_profil,    R.color.gray_text,     Typeface.NORMAL);
+    }
+
+    private void setNavColor(int navId, int colorRes, int typefaceStyle) {
+        LinearLayout tab = findViewById(navId);
+        if (tab == null) return;
+        for (int i = 0; i < tab.getChildCount(); i++) {
+            View child = tab.getChildAt(i);
+            if (child instanceof ImageView) {
+                ((ImageView) child).setColorFilter(
+                        getResources().getColor(colorRes, getTheme()));
+            } else if (child instanceof TextView) {
+                ((TextView) child).setTextColor(
+                        getResources().getColor(colorRes, getTheme()));
+                ((TextView) child).setTypeface(null, typefaceStyle);
+            }
+        }
     }
 }
