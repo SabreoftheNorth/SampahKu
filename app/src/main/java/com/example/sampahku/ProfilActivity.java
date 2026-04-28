@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfilActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // Bottom nav
+    // ini adalah navbar, navbar punya home, reward, qr, statistik, profil
     private LinearLayout navHome;
     private LinearLayout navReward;
     private LinearLayout navQr;
@@ -30,7 +30,7 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
             getSupportActionBar().hide();
         }
 
-        // Tombol back
+        // tombol backnya BISA YESS!!!
         ImageView ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +39,7 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        // Tombol edit profil
+        // tombol edit profil (namun tidak ada fiturnya hahahaha)
         ImageView ivEdit = findViewById(R.id.iv_edit);
         ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +49,7 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        // Bottom nav
+        // findviewbyid tapi ini depresi :(
         navHome = findViewById(R.id.nav_home);
         navReward = findViewById(R.id.nav_reward);
         navQr = findViewById(R.id.nav_qr);
@@ -62,12 +62,13 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         navStatistik.setOnClickListener(this);
         navProfil.setOnClickListener(this);
 
-        // Setup data profil dan menu
+        // setup data-data profil dan menu
         setupProfilData();
         setupMenuItems();
         setActiveNav();
     }
 
+    // pokoknya patokannya ada di MainActivity untuk intent intent ini
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.nav_home) {
@@ -92,9 +93,7 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    /**
-     * Set data baris-baris info profil
-     */
+    // set data-data informasi profil
     private void setupProfilData() {
         View itemNama = findViewById(R.id.item_nama_pengguna);
         ((TextView) itemNama.findViewById(R.id.tv_label)).setText("Nama Pengguna :");
@@ -113,9 +112,7 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         ((TextView) itemAlamat.findViewById(R.id.tv_value)).setText("-");
     }
 
-    /**
-     * Set label dan ikon setiap item menu
-     */
+    // ini untuk setiap ikon dan label yg ada di menu halaman
     private void setupMenuItems() {
         setMenuItem(R.id.menu_pin,      R.drawable.ic_pin,    "Atur Pin Penukaran Reward");
         setMenuItem(R.id.menu_password, R.drawable.ic_lock,   "Ubah Password");
@@ -124,7 +121,8 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         setMenuItem(R.id.menu_bantuan,  R.drawable.ic_help,   "Bantuan");
         setMenuItem(R.id.menu_keluar,   R.drawable.ic_logout, "Keluar");
 
-        // Khusus tombol Keluar — kembali ke LoginActivity dan clear back stack
+        // khusus utk tombol Keluar, bisa kembali ke LoginActivity dan clear back stack
+        // WAAAAAAAAAAH HEBAT
         RelativeLayout menuKeluar = findViewById(R.id.menu_keluar);
         menuKeluar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +133,7 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        // Menu lain: coming soon
+        // menu lain yg belum diimplementasi: "coming sooooonnn..."
         int[] menuIds = {
                 R.id.menu_pin, R.id.menu_password,
                 R.id.menu_privasi, R.id.menu_bahasa, R.id.menu_bantuan
@@ -152,18 +150,14 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    /**
-     * Helper untuk set icon dan label setiap item menu
-     */
+    // helper utk set icon dan label setiap item menu
     private void setMenuItem(int menuId, int iconRes, String label) {
         View menu = findViewById(menuId);
         ((ImageView) menu.findViewById(R.id.iv_menu_icon)).setImageResource(iconRes);
         ((TextView) menu.findViewById(R.id.tv_menu_label)).setText(label);
     }
 
-    /**
-     * Highlight tab Profil, reset semua tab lain ke abu-abu
-     */
+    // lebih buat navbar, highlight bagian profil dan yg lain abu2
     private void setActiveNav() {
         setNavColor(R.id.nav_home, R.color.gray_text, Typeface.NORMAL);
         setNavColor(R.id.nav_reward, R.color.gray_text, Typeface.NORMAL);

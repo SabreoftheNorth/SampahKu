@@ -35,6 +35,7 @@ public class RewardActivity extends AppCompatActivity implements View.OnClickLis
 
         // inisialisasi tombol back
         // masih bermasalah sih...
+        // NVM.. FIXED!
         ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,22 +129,21 @@ public class RewardActivity extends AppCompatActivity implements View.OnClickLis
         ((ImageView) item3.findViewById(R.id.iv_reward_logo)).setImageResource(R.drawable.logo_alfamart);
     }
 
-    /**
-     * Implicit Intent untuk membuka aplikasi GoPay.
-     * Jika GoPay terinstall, akan langsung membuka app-nya.
-     * Jika tidak, akan membuka browser ke halaman GoPay.
-     * (Sesuai konsep Implicit Intent di modul Praktikum 5)
+    /*
+     * jadi ini bentuk implicit intent untuk membuka aplikasi GoPay.
+     * "aplikasi" padahal cuma websitenya saja
+     * kalau terinstall ya, akan langsung kebuka app-nya.
      */
     private void bukaGopay() {
-        // Coba buka app GoPay langsung via deep link
+        // coba buka app GoPay langsung via deep link (kalau ada)
         Intent intent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("gojek://gopay"));
 
-        // Cek apakah ada app yang bisa handle intent ini
+        // cek apa ada app yang bisa handle intent ini
         if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent); // Buka app GoPay
+            startActivity(intent); // maka buka app GoPay
         } else {
-            // Fallback: buka browser ke website GoPay
+            // fallback: buka browser ke website GoPay
             Intent browser = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://gopay.co.id"));
             startActivity(browser);

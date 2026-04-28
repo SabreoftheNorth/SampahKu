@@ -14,7 +14,7 @@
         android:paddingStart="8dp"
         android:paddingEnd="8dp">
 
-        <!-- HOME -->
+        <!-- tombol home -->
         <LinearLayout
             android:id="@+id/nav_home"
             android:layout_width="0dp"
@@ -41,7 +41,7 @@
 
         </LinearLayout>
 
-        <!-- REWARD -->
+        <!-- reward -->
         <LinearLayout
             android:id="@+id/nav_reward"
             android:layout_width="0dp"
@@ -67,7 +67,8 @@
 
         </LinearLayout>
 
-        <!-- QR CODE (TENGAH) -->
+        <!-- QR code di tengah, tapi masalahnya kalau pakai tulisan ya jadi susah gitu -->
+        <!-- AAAAAAAAAARGHHH -->
         <LinearLayout
             android:id="@+id/nav_qr"
             android:layout_width="0dp"
@@ -92,6 +93,7 @@
 
             </FrameLayout>
 
+            <!-- me dont know what to do so me comment -->
             <!--
             <TextView
                 android:layout_width="wrap_content"
@@ -105,7 +107,7 @@
 
         </LinearLayout>
 
-        <!-- STATISTIK -->
+        <!-- STATISTIK-eh -->
         <LinearLayout
             android:id="@+id/nav_statistik"
             android:layout_width="0dp"
@@ -131,7 +133,7 @@
 
         </LinearLayout>
 
-        <!-- PROFIL -->
+        <!-- PROFIL-eh -->
         <LinearLayout
             android:id="@+id/nav_profil"
             android:layout_width="0dp"

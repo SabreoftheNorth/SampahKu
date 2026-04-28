@@ -94,6 +94,7 @@
     </LinearLayout>
 
     <!-- tombol resend kode QR -->
+    <!-- ada timeclock thingy thingy -->
     <LinearLayout
         android:id="@+id/btn_resend"
         android:layout_width="match_parent"

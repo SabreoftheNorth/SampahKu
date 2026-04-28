@@ -15,7 +15,7 @@ public class StatistikActivity extends AppCompatActivity implements View.OnClick
 
     private LinearLayout btnTukarPoin;
 
-    // Bottom nav
+    // navbarnya
     private LinearLayout navHome;
     private LinearLayout navReward;
     private LinearLayout navQr;
@@ -31,7 +31,8 @@ public class StatistikActivity extends AppCompatActivity implements View.OnClick
             getSupportActionBar().hide();
         }
 
-        // Tombol back
+        // tombol back, FUNGSI BASICALLY THE SAME WITH OTHERS LAH
+        // singapore mode activated fr fr
         ImageView ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,16 +41,16 @@ public class StatistikActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        // Tombol tukar poin
+        // tombol utk tukar poin, ambil dari beranda saja yukss
         btnTukarPoin = findViewById(R.id.btn_tukar_poin);
         btnTukarPoin.setOnClickListener(this);
 
-        // Bottom nav
-        navHome      = findViewById(R.id.nav_home);
-        navReward    = findViewById(R.id.nav_reward);
-        navQr        = findViewById(R.id.nav_qr);
+        // navbar di bawah
+        navHome = findViewById(R.id.nav_home);
+        navReward = findViewById(R.id.nav_reward);
+        navQr = findViewById(R.id.nav_qr);
         navStatistik = findViewById(R.id.nav_statistik);
-        navProfil    = findViewById(R.id.nav_profil);
+        navProfil = findViewById(R.id.nav_profil);
 
         navHome.setOnClickListener(this);
         navReward.setOnClickListener(this);
@@ -57,10 +58,10 @@ public class StatistikActivity extends AppCompatActivity implements View.OnClick
         navStatistik.setOnClickListener(this);
         navProfil.setOnClickListener(this);
 
-        // Set data aktivitas
+        // set data aktivitas
         setupAktivitasItems();
 
-        // Highlight tab Statistik
+        // highlight tab Statistik
         setActiveNav();
     }
 
@@ -84,7 +85,7 @@ public class StatistikActivity extends AppCompatActivity implements View.OnClick
             startActivity(new Intent(StatistikActivity.this, ProfilActivity.class));
 
         } else if (v.getId() == R.id.btn_tukar_poin) {
-            Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(StatistikActivity.this, RewardActivity.class));
         }
     }
 
@@ -108,12 +109,10 @@ public class StatistikActivity extends AppCompatActivity implements View.OnClick
                 .setText("20 April 2026 • Mesin C - Kampus");
     }
 
-    /**
-     * Highlight tab Statistik sebagai aktif,
-     * reset tab lain ke abu-abu
-     */
 
-    // TODO APPLY ALL THIS FIX TO ALL THE ACTIVITIES AS WELL
+    // basically highlight tab di navbar agar statistik jadi hijau dan yang lainnya jadi abu2
+    // (DONE) APPLY ALL THIS FIX TO ALL THE ACTIVITIES AS WELL
+    // welp that's done
     private void setActiveNav() {
         setNavColor(R.id.nav_home,      R.color.gray_text,     Typeface.NORMAL);
         setNavColor(R.id.nav_reward,    R.color.gray_text,     Typeface.NORMAL);

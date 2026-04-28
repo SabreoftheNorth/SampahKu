@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- ============== KONTEN UTAMA (SCROLL) ============== -->
+    <!-- konten utama dalam bentuk ScrollView (LETSGOO) -->
     <ScrollView
         android:id="@+id/scroll_main"
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:paddingTop="48dp"
             android:paddingBottom="16dp">
 
-            <!-- ===== HEADER: Tombol Back + Judul ===== -->
+            <!-- header -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
 
             </LinearLayout>
 
-            <!-- ===== CARD TOTAL POIN (sama persis dengan Home) ===== -->
+            <!-- total poin-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/plus_jakarta_sans_bold" />
 
-                <!-- Tombol Tukarkan Poin -->
+                <!-- tombol tukarkan poin -->
                 <LinearLayout
                     android:id="@+id/btn_tukar_poin"
                     android:layout_width="wrap_content"
@@ -110,16 +110,7 @@
                         android:contentDescription="@string/tukar_poin" />
 
                 </LinearLayout>
-
             </LinearLayout>
-
-            <!-- ===== CHART PIE ===== -->
-            <!--
-                Ganti @drawable/img_chart_pie dengan file gambar chart kamu.
-                Cara memasukkan:
-                1. Rename file menjadi: img_chart_pie.png
-                2. Letakkan di: app/src/main/res/drawable/
-            -->
             <ImageView
                 android:id="@+id/iv_chart"
                 android:layout_width="260dp"
@@ -130,7 +121,7 @@
                 android:scaleType="fitCenter"
                 android:contentDescription="Chart statistik sampah" />
 
-            <!-- ===== LEGENDA WARNA CHART ===== -->
+            <!-- legenda untuk warna chart -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,14 +139,14 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/plus_jakarta_sans_bold" />
 
-                <!-- Baris 1: Botol Plastik + Kain -->
+                <!-- baris 1: botol Plastik dan kain -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
-                    <!-- Botol Plastik -->
+                    <!-- bp: British Petrole- eh sori Botol Plastik -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -180,7 +171,7 @@
 
                     </LinearLayout>
 
-                    <!-- Kain -->
+                    <!-- kain -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -204,17 +195,16 @@
                             android:fontFamily="@font/plus_jakarta_sans_regular" />
 
                     </LinearLayout>
-
                 </LinearLayout>
 
-                <!-- Baris 2: Kertas + Kaleng Soda -->
+                <!-- baris 2: kertas dan kaleng soda -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
-                    <!-- Kertas -->
+                    <!-- paper without the clip (kertas)-->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -239,7 +229,7 @@
 
                     </LinearLayout>
 
-                    <!-- Kaleng Soda -->
+                    <!-- my little soda can (soda)-->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -263,17 +253,15 @@
                             android:fontFamily="@font/plus_jakarta_sans_regular" />
 
                     </LinearLayout>
-
                 </LinearLayout>
 
-                <!-- Baris 3: Minyak Bekas -->
+                <!-- baris 3: minyak bekas -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
-                    <!-- Minyak Bekas -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -298,18 +286,16 @@
 
                     </LinearLayout>
 
-                    <!-- Placeholder kosong agar layout tetap simetris -->
+                    <!-- placeholder kosong agar layout tetap simetris -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="horizontal" />
-
                 </LinearLayout>
-
             </LinearLayout>
 
-            <!-- ===== CARD JENIS SAMPAH TERBANYAK ===== -->
+            <!-- "JENIS SAMPAH TERBANYAK" card -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -357,7 +343,7 @@
 
             </LinearLayout>
 
-            <!-- ===== CARD AKTIVITAS TERBARU ===== -->
+            <!-- aktivitas terbaru -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -393,7 +379,7 @@
 
     </ScrollView>
 
-    <!-- ============== BOTTOM NAVIGATION BAR ============== -->
+    <!-- utk navbarnya -->
     <include
         layout="@layout/bottom_navigation"
         android:id="@+id/bottom_nav"

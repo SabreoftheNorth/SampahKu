@@ -23,7 +23,7 @@
             android:paddingTop="48dp"
             android:paddingBottom="24dp">
 
-            <!-- Header "Halo, Rakha" dan motif-motif lainnya-->
+            <!-- header "Halo, Rakha" dan motif-motif lainnya-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -138,7 +138,6 @@
                         android:layout_marginStart="8dp"
                         android:src="@drawable/ic_arrow_right_circle"
                         android:contentDescription="@string/tukar_poin" />
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -160,6 +159,7 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/plus_jakarta_sans_bold" />
 
+                <!-- ITEM ITEMNYA YA GAIS -->
                 <!-- Kain/Cacahan -->
                 <include
                     layout="@layout/item_aktivitas"
@@ -204,7 +204,7 @@
                     layout="@layout/item_edukasi"
                     android:id="@+id/item_edukasi_2" />
 
-                <!-- Item Edukasi 3 -->
+                <!-- Item Edukasi 3 WEEEEEEEEEEEEEEEEEEEEEEEEEE-->
                 <include
                     layout="@layout/item_edukasi"
                     android:id="@+id/item_edukasi_3" />

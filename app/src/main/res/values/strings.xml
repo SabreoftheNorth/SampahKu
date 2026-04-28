@@ -73,7 +73,7 @@
     <string name="statistik_title">Statistik</string>
     <string name="statistik_most_deposit">Jenis Sampah dengan Deposit Terbanyak</string>
     <string name="statistik_total_deposit">Total Deposit</string>
-    <string name="chart_legend_title">Keterangan Warna</string>
+    <string name="chart_legend_title">Legenda</string>
 
     <!-- HALAMAN PROFILLLLLLLLLLLLLL -->
     <string name="profil_title">Profil</string>

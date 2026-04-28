@@ -24,7 +24,7 @@
             android:paddingTop="48dp"
             android:paddingBottom="16dp">
 
-            <!-- ===== HEADER: Tombol Back + Judul ===== -->
+            <!-- header (tombol back dan judul) DUHHHH -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
 
             </LinearLayout>
 
-            <!-- ===== CARD INFO USER ===== -->
+            <!-- card utk info penggunanya "Rakha"-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 android:orientation="horizontal"
                 android:padding="16dp">
 
-                <!-- Avatar -->
+                <!-- avatarnya (tdk ada gambar)-->
                 <FrameLayout
                     android:layout_width="48dp"
                     android:layout_height="48dp"
@@ -77,7 +77,7 @@
 
                 </FrameLayout>
 
-                <!-- Nama + Email -->
+                <!--nama dan email si rakha (sesuai dengan yang dipakai utk login -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -100,14 +100,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="rakaatha@gmail.com"
+                        android:text="rakha@user.com"
                         android:textColor="@color/gray_text"
                         android:textSize="12sp"
                         android:fontFamily="@font/plus_jakarta_sans_regular" />
 
                 </LinearLayout>
 
-                <!-- Ikon Edit -->
+                <!-- ikon utk edit -->
                 <ImageView
                     android:id="@+id/iv_edit"
                     android:layout_width="20dp"
@@ -119,32 +119,32 @@
 
             </LinearLayout>
 
-            <!-- ===== DATA PROFIL ===== -->
+            <!-- data dari profilnya -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
-                <!-- Nama Pengguna -->
+                <!-- nama pengguna -->
                 <include layout="@layout/item_profil_data"
                     android:id="@+id/item_nama_pengguna" />
 
-                <!-- Email -->
+                <!-- email -->
                 <include layout="@layout/item_profil_data"
                     android:id="@+id/item_email" />
 
-                <!-- No Telepon -->
+                <!-- no telp.-->
                 <include layout="@layout/item_profil_data"
                     android:id="@+id/item_telepon" />
 
-                <!-- Alamat -->
+                <!-- alamat -->
                 <include layout="@layout/item_profil_data"
                     android:id="@+id/item_alamat" />
 
             </LinearLayout>
 
-            <!-- ===== MENU SETTINGS ===== -->
+            <!-- SETTINGS MENUUUUUUUUU -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
                 android:orientation="vertical"
                 android:padding="4dp">
 
-                <!-- Atur Pin Penukaran Reward -->
+                <!-- mengatur pin penukaran reward -->
                 <include layout="@layout/item_menu_profil"
                     android:id="@+id/menu_pin" />
 
@@ -164,7 +164,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp" />
 
-                <!-- Ubah Password -->
+                <!-- ubah password -->
                 <include layout="@layout/item_menu_profil"
                     android:id="@+id/menu_password" />
 
@@ -175,7 +175,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp" />
 
-                <!-- Pengaturan Privasi -->
+                <!-- privacy (HA! windows tak bisa nih) -->
                 <include layout="@layout/item_menu_profil"
                     android:id="@+id/menu_privasi" />
 
@@ -186,7 +186,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp" />
 
-                <!-- Bahasa -->
+                <!-- bahasa-->
                 <include layout="@layout/item_menu_profil"
                     android:id="@+id/menu_bahasa" />
 
@@ -197,7 +197,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp" />
 
-                <!-- Bantuan -->
+                <!-- help! -->
+                <!-- I NEED SOMEBODY -->
+                <!-- help! -->
+                <!-- NOT JUST ANYBODYYYY -->
                 <include layout="@layout/item_menu_profil"
                     android:id="@+id/menu_bantuan" />
 
@@ -208,17 +211,14 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp" />
 
-                <!-- Keluar -->
+                <!-- keluar -->
                 <include layout="@layout/item_menu_profil"
                     android:id="@+id/menu_keluar" />
-
             </LinearLayout>
-
         </LinearLayout>
-
     </ScrollView>
 
-    <!-- ===== BOTTOM NAVIGATION ===== -->
+    <!-- bottom navigation bar -->
     <include
         layout="@layout/bottom_navigation"
         android:id="@+id/bottom_nav"

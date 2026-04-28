@@ -1,3 +1,4 @@
+// Hallo, jeg heter herr x og jeg kommer fra Indonesia
 package com.example.sampahku;
 
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import android.net.Uri; // untuk bagian implicit intentnya
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -65,9 +68,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (v.getId() == R.id.btn_login) {
             handleLogin();
         } else if (v.getId() == R.id.iv_google) {
-            Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            // IMPLICIT INTENT UNTUK GOOGLE DAN APPLE ID BABAYYY
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://accounts.google.com/signin"));
+            startActivity(intent);
         } else if (v.getId() == R.id.iv_apple) {
-            Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://appleid.apple.com/sign-in"));
+            startActivity(intent);
         } else if (v.getId() == R.id.tv_forgot_password) {
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
         } else if (v.getId() == R.id.tv_register) {

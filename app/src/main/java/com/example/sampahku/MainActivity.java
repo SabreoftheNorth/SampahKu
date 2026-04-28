@@ -9,8 +9,10 @@ import android.content.Intent; // untuk import fungsi Intent
 import android.graphics.Typeface;
 import android.widget.ImageView;
 
+import android.net.Uri; // untuk intent yang implicit
+
 // saya justru masih ragu ini library kebanyakan dipake atau gk ya?
-// TODO FIGURE SOMETHING OUT OR SMTH IDK
+// (kinda done?) FIGURE SOMETHING OUT OR SMTH IDK
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -95,9 +97,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (v.getId() == R.id.nav_profil) {
             startActivity(new Intent(MainActivity.this, ProfilActivity.class));
 
-        } // else if (v.getId() == R.id.tbl_tukar_poin) {
-            // Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-       // }
+        } else if (v.getId() == R.id.btn_tukar_poin) {
+            startActivity(new Intent(MainActivity.this, RewardActivity.class));
+        }
     }
 
     //ini utk set data untuk 3 aktivitas yang baru
@@ -123,18 +125,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //set data untuk 3 item edukasinya
     private void setupEdukasiItems() {
-        //item 1 sudah default
-        // sedangkan item 2:
+        // video 1 - Cara Memilah Sampah Plastik (default)
+        View item1 = findViewById(R.id.item_edukasi_1);
+        item1.findViewById(R.id.btn_tonton_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bukaYoutube("DOflL-Ha2Dk");
+            }
+        });
+
+        // video 2 - Cara Menyimpan Minyak Bekas
         View item2 = findViewById(R.id.item_edukasi_2);
         ((TextView) item2.findViewById(R.id.tv_judul_edukasi)).setText("Cara Menyimpan Minyak Bekas");
         ((TextView) item2.findViewById(R.id.tv_desc_edukasi))
                 .setText("Simpan minyak bekas di tempat yang tidak lembab");
+        item2.findViewById(R.id.btn_tonton_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bukaYoutube("F-v7UbnpXf8");
+            }
+        });
 
-        // Item 3
+        // video 3 - Cara memilah sampah plastik
         View item3 = findViewById(R.id.item_edukasi_3);
         ((TextView) item3.findViewById(R.id.tv_judul_edukasi)).setText("Cara memilah sampah plastik");
         ((TextView) item3.findViewById(R.id.tv_desc_edukasi))
                 .setText("Pisahkan sesuai jenis agar poin maksimal");
+        item3.findViewById(R.id.btn_tonton_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bukaYoutube("nrANKUUHBf0");
+            }
+        });
     }
 
     // semoga bisa mengatasi masalah navbar punya warna berbeda setiap halaman
@@ -158,6 +180,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         getResources().getColor(colorRes, getTheme()));
                 ((TextView) child).setTypeface(null, typefaceStyle);
             }
+        }
+    }
+
+    //INI UNTUK FITUR NONTON VIDEO YOUTUBE TUTORIAL
+    //WEEE PAKAI IMPLICIT INTENT LAGIII
+    // seperti kaya yang gojek itu, kalau blm ada appnya maka akan buka browser
+    private void bukaYoutube(String videoId) {
+        // memcoba buka di app YouTube
+        Intent appIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("vnd.youtube:" + videoId));
+
+        if (appIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(appIntent);
+        } else {
+            // fallback ke browser kalau tidak ada appnya
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://youtube.com/watch?v=" + videoId));
+            startActivity(webIntent);
         }
     }
 }
