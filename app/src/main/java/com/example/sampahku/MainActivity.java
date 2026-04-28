@@ -68,9 +68,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Ini hanya memastikan apakah tombol home bekerja
             // aslinya sdh di home
             Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
-
+            // menggunakan inten untuk menuju ke halaman Reward
         } else if (v.getId() == R.id.nav_reward) {
-            Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, RewardActivity.class);
+            startActivity(intent);
 
             //menggunakan inten untuk menuju ke halaman scan QR
         } else if (v.getId() == R.id.nav_qr) {
