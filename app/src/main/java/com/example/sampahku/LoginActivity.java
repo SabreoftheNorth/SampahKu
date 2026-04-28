@@ -16,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String VALID_EMAIL = "rakha@user.com";
+    private static final String VALID_PASSWORD = "user123";
+
     private EditText editEmail;
     private EditText editPassword;
     private Button btnLogin;
@@ -66,10 +69,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else if (v.getId() == R.id.iv_apple) {
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
         } else if (v.getId() == R.id.tv_forgot_password) {
-            // TODO: Navigasi ke halaman lupa password
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
         } else if (v.getId() == R.id.tv_register) {
-            // menggunakan inten untuk pindah ke halaman Register (secara eksplisit)
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.iv_toggle_password) {
@@ -80,28 +81,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // untuk menangani proses login
     // validasi input juga
     private void handleLogin() {
-        String email = editEmail.getText().toString().trim();
+        String email    = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
         boolean isEmptyFields = false;
-
         if (TextUtils.isEmpty(email)) {
             isEmptyFields = true;
             editEmail.setError(getString(R.string.error_email_empty));
         }
-
         if (TextUtils.isEmpty(password)) {
             isEmptyFields = true;
             editPassword.setError(getString(R.string.error_password_empty));
         }
-
         if (!isEmptyFields) {
-            // TODO: hubungkan ke banckend
-            // untuk saat ini, langsung pindah ke MainActivity saja
-            Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            // Cek kredensial
+            if (email.equals(VALID_EMAIL) && password.equals(VALID_PASSWORD)) {
+                Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, getString(R.string.error_password_mismatch), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -109,17 +110,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // implementasinya sama di halaman register
     private void togglePasswordVisibility() {
         if (isPasswordVisible) {
-            // menyembunyikan password
             editPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             ivTogglePassword.setImageResource(R.drawable.ic_eye_off);
             isPasswordVisible = false;
         } else {
-            // menampilkan passwordnya
             editPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             ivTogglePassword.setImageResource(R.drawable.ic_eye_on);
             isPasswordVisible = true;
         }
-        // digunakan untuk memindahkan kursor ke akhir teks
         editPassword.setSelection(editPassword.getText().length());
     }
 }
