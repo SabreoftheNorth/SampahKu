@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Card putih untuk item hadiah/reward -->
+<!-- card warna putih utk item hadiah/reward -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="14dp">
 
-    <!-- Nama hadiah -->
+    <!-- nama hadiahnya -->
     <TextView
         android:id="@+id/tv_reward_name"
         android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
         android:textStyle="bold"
         android:fontFamily="@font/plus_jakarta_sans_bold" />
 
-    <!-- Deskripsi -->
+    <!-- deskripsinya -->
     <TextView
         android:id="@+id/tv_reward_desc"
         android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
         android:textSize="11sp"
         android:fontFamily="@font/plus_jakarta_sans_regular" />
 
-    <!-- Poin yang dibutuhkan -->
+    <!-- poin diperlukan brp -->
     <TextView
         android:id="@+id/tv_reward_points"
         android:layout_width="wrap_content"
@@ -42,13 +42,13 @@
         android:textStyle="bold"
         android:fontFamily="@font/plus_jakarta_sans_bold" />
 
-    <!-- Logo merchant + Tombol Tukar -->
+    <!-- logo merchant dan tombol utk menukar -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp">
 
-        <!-- Logo merchant -->
+        <!-- logo merchant -->
         <ImageView
             android:id="@+id/iv_reward_logo"
             android:layout_width="80dp"
@@ -59,7 +59,7 @@
             android:scaleType="fitStart"
             android:contentDescription="Logo merchant" />
 
-        <!-- Tombol Tukar -->
+        <!-- tombol utk menukar -->
         <TextView
             android:id="@+id/btn_tukar"
             android:layout_width="wrap_content"
@@ -78,7 +78,5 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/plus_jakarta_sans_bold" />
-
     </RelativeLayout>
-
 </LinearLayout>

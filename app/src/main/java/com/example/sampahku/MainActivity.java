@@ -7,6 +7,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent; // untuk import fungsi Intent
 
+// saya justru masih ragu ini library kebanyakan dipake atau gk ya?
+// TODO FIGURE SOMETHING OUT OR SMTH IDK
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;

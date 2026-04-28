@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Typeface; // apa perlu ya?
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +15,7 @@ public class RewardActivity extends AppCompatActivity implements View.OnClickLis
 
     private ImageView ivBack;
 
-    // Bottom nav items
+    // list navbar isinya
     private LinearLayout navHome;
     private LinearLayout navReward;
     private LinearLayout navQr;
@@ -30,7 +31,8 @@ public class RewardActivity extends AppCompatActivity implements View.OnClickLis
             getSupportActionBar().hide();
         }
 
-        // Inisialisasi tombol back
+        // inisialisasi tombol back
+        // masih bermasalah sih...
         ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,12 +41,12 @@ public class RewardActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        // Inisialisasi bottom navigation
-        navHome      = findViewById(R.id.nav_home);
-        navReward    = findViewById(R.id.nav_reward);
-        navQr        = findViewById(R.id.nav_qr);
+        // inisialisasi bottom navigation bar
+        navHome = findViewById(R.id.nav_home);
+        navReward = findViewById(R.id.nav_reward);
+        navQr = findViewById(R.id.nav_qr);
         navStatistik = findViewById(R.id.nav_statistik);
-        navProfil    = findViewById(R.id.nav_profil);
+        navProfil = findViewById(R.id.nav_profil);
 
         navHome.setOnClickListener(this);
         navReward.setOnClickListener(this);
@@ -52,18 +54,19 @@ public class RewardActivity extends AppCompatActivity implements View.OnClickLis
         navStatistik.setOnClickListener(this);
         navProfil.setOnClickListener(this);
 
-        // Set data untuk item-item reward
+        // set data untuk item-item rewardnya
         setupRewardItems();
+        setActiveNav(); // untuk navbar ganti warna ketika di halaman reward
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.nav_home) {
-            // Kembali ke MainActivity (Home)
+            // balik lagi ke MainActivity (Home)
             finish();
 
         } else if (v.getId() == R.id.nav_reward) {
-            // Sudah di Reward
+            // sudah di Reward, jadi ya...
             Toast.makeText(this, "Reward", Toast.LENGTH_SHORT).show();
 
         } else if (v.getId() == R.id.nav_qr) {
@@ -78,10 +81,8 @@ public class RewardActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    /**
-     * Set data untuk semua item reward
-     * (Karena pakai <include>, kita override datanya di sini)
-     */
+    // ini utk melakukan set data untuk semua item reward
+    // (tapi karena udh pakai <include>, kita override datanya di sini)
     private void setupRewardItems() {
         // ITEM HADIAH TERAKHIR - Gopay
         View itemLast = findViewById(R.id.item_last_reward);
@@ -111,5 +112,37 @@ public class RewardActivity extends AppCompatActivity implements View.OnClickLis
         ((TextView) item3.findViewById(R.id.tv_reward_desc)).setText("Tukarkan Voucher di Alfamart Terdekat");
         ((TextView) item3.findViewById(R.id.tv_reward_points)).setText("100 Poin");
         ((ImageView) item3.findViewById(R.id.iv_reward_logo)).setImageResource(R.drawable.logo_alfamart);
+    }
+
+    private void setActiveNav() {
+        // ini akan mereset warna ikon dan tulisan "Home" ketika sudah ada di halaman reward
+        LinearLayout tabHome = findViewById(R.id.nav_home);
+        ImageView iconHome   = (ImageView) tabHome.getChildAt(0);
+        TextView  labelHome  = (TextView)  tabHome.getChildAt(1);
+
+        iconHome.setColorFilter(
+                getResources().getColor(R.color.gray_text, getTheme())
+        );
+        labelHome.setTextColor(
+                getResources().getColor(R.color.gray_text, getTheme())
+        );
+
+        // ambil LinearLayout dari tab Reward
+        LinearLayout tabReward = findViewById(R.id.nav_reward);
+
+        // child index 0 = ImageView (ikon)
+        // child index 1 = TextView (label)
+        ImageView iconReward = (ImageView) tabReward.getChildAt(0);
+        TextView  labelReward = (TextView) tabReward.getChildAt(1);
+
+        // ubah warna ikon jadi hijau
+        iconReward.setColorFilter(
+                getResources().getColor(R.color.green_primary, getTheme())
+        );
+
+        // ubah warna teks navbar jadi hijau + bold
+        labelReward.setTextColor(
+                getResources().getColor(R.color.green_primary, getTheme())
+        );
     }
 }
