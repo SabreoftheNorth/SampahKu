@@ -80,9 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (v.getId() == R.id.nav_profil) {
             Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
 
-        } else if (v.getId() == R.id.tbl_tukar_poin) {
-            Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
-        }
+        } // else if (v.getId() == R.id.tbl_tukar_poin) {
+            // Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+       // }
     }
 
     //ini utk set data untuk 3 aktivitas yang baru
