@@ -45,7 +45,13 @@ public class QrActivity extends AppCompatActivity implements View.OnClickListene
         btnResend = findViewById(R.id.btn_resend);
         tvCountdownLabel = findViewById(R.id.tv_countdown_label);
 
-        ivBack.setOnClickListener(this);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         btnResend.setOnClickListener(this);
 
         // dipakai untuk mengaktifkan countdown
@@ -54,11 +60,12 @@ public class QrActivity extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.iv_back) {
-            finish();
+       // if (v.getId() == R.id.iv_back) {
+            //finish();
 
-        } else if (v.getId() == R.id.btn_resend) {
-            Toast.makeText(this, getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+        //}
+            if (v.getId() == R.id.btn_resend) {
+            btnResend.setAlpha(0.4f);
 
             // ini dipakai untuk reset countdown ketika tombol resend ditekan
             if (countDownTimer != null) {
@@ -71,6 +78,7 @@ public class QrActivity extends AppCompatActivity implements View.OnClickListene
     // memulai fungsi perhitungan
     private void startCountdown() {
         btnResend.setEnabled(false);
+        btnResend.setAlpha(0.4f);
 
         countDownTimer = new CountDownTimer(DURATION_MS, 1000) {
 
@@ -88,8 +96,9 @@ public class QrActivity extends AppCompatActivity implements View.OnClickListene
             public void onFinish() {
                 tvCountdownLabel.setText("Kode Telah Kadaluarsa");
                 btnResend.setEnabled(true);
+                btnResend.setAlpha(1.0f);
+                btnResend.setBackgroundResource(R.drawable.bg_button_green);
             }
-
         }.start();
     }
 
