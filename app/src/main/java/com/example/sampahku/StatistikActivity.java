@@ -8,6 +8,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -90,25 +94,40 @@ public class StatistikActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void setupAktivitasItems() {
-        // Item 1: default (Kain/Cacahan) sudah dari item_aktivitas.xml
-
-        // Item 2: Botol Plastik
+        // ID di bawah ini sudah diperbaiki khusus untuk halaman Statistik
         View itemBotol = findViewById(R.id.item_stat_botol);
-        ((TextView) itemBotol.findViewById(R.id.tv_nama_sampah)).setText("Botol Plastik");
-        ((TextView) itemBotol.findViewById(R.id.tv_berat)).setText("0.50 kg");
-        ((TextView) itemBotol.findViewById(R.id.tv_poin)).setText("+100 poin");
-        ((TextView) itemBotol.findViewById(R.id.tv_tanggal_lokasi))
-                .setText("18 April 2026 • Mesin A - Supermarket");
-
-        // Item 3: Kertas Koran
         View itemKertas = findViewById(R.id.item_stat_kertas);
-        ((TextView) itemKertas.findViewById(R.id.tv_nama_sampah)).setText("Kertas Koran");
-        ((TextView) itemKertas.findViewById(R.id.tv_berat)).setText("0.5 kg");
-        ((TextView) itemKertas.findViewById(R.id.tv_poin)).setText("+50 poin");
-        ((TextView) itemKertas.findViewById(R.id.tv_tanggal_lokasi))
-                .setText("20 April 2026 • Mesin C - Kampus");
-    }
 
+        ApiClient.getService().getRiwayat().enqueue(new Callback<List<RiwayatResponse>>() {
+            @Override
+            public void onResponse(Call<List<RiwayatResponse>> call, Response<List<RiwayatResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<RiwayatResponse> list = response.body();
+
+                    if (list.size() > 0) {
+                        RiwayatResponse r1 = list.get(0);
+                        ((TextView) itemBotol.findViewById(R.id.tv_nama_sampah)).setText(r1.getNamaSampah());
+                        ((TextView) itemBotol.findViewById(R.id.tv_berat)).setText(r1.getBerat() + " kg");
+                        ((TextView) itemBotol.findViewById(R.id.tv_poin)).setText("+" + r1.getPoinDidapat() + " poin");
+                        ((TextView) itemBotol.findViewById(R.id.tv_tanggal_lokasi)).setText(r1.getTanggalLokasi());
+                    }
+
+                    if (list.size() > 1) {
+                        RiwayatResponse r2 = list.get(1);
+                        ((TextView) itemKertas.findViewById(R.id.tv_nama_sampah)).setText(r2.getNamaSampah());
+                        ((TextView) itemKertas.findViewById(R.id.tv_berat)).setText(r2.getBerat() + " kg");
+                        ((TextView) itemKertas.findViewById(R.id.tv_poin)).setText("+" + r2.getPoinDidapat() + " poin");
+                        ((TextView) itemKertas.findViewById(R.id.tv_tanggal_lokasi)).setText(r2.getTanggalLokasi());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RiwayatResponse>> call, Throwable t) {
+                Toast.makeText(StatistikActivity.this, "Gagal memuat statistik", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     // basically highlight tab di navbar agar statistik jadi hijau dan yang lainnya jadi abu2
     // (DONE) APPLY ALL THIS FIX TO ALL THE ACTIVITIES AS WELL

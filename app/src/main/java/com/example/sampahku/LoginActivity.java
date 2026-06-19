@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.net.Uri; // untuk bagian implicit intentnya
 
@@ -89,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // untuk menangani proses login
     // validasi input juga
     private void handleLogin() {
-        String email    = editEmail.getText().toString().trim();
+        String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
         boolean isEmptyFields = false;
@@ -101,16 +104,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             isEmptyFields = true;
             editPassword.setError(getString(R.string.error_password_empty));
         }
+
         if (!isEmptyFields) {
-            // Cek kredensial
-            if (email.equals(VALID_EMAIL) && password.equals(VALID_PASSWORD)) {
-                Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(this, getString(R.string.error_login_invalid), Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(this, "Mencoba masuk...", Toast.LENGTH_SHORT).show();
+
+            // Mengirim request ke Django
+            ApiClient.getService().loginUser(email, password).enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    // Mengecek apakah server membalas
+                    if (response.isSuccessful() && response.body() != null) {
+                        // Mengecek apakah status JSON dari Django adalah "success"
+                        if ("success".equals(response.body().getStatus())) {
+                            Toast.makeText(LoginActivity.this, "Selamat datang, " + response.body().getNama(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Email atau password salah!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    // Akan masuk ke sini jika server mati atau internet tidak ada
+                    Toast.makeText(LoginActivity.this, "Koneksi ke server gagal: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 

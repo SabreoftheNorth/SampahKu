@@ -9,6 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -96,20 +100,37 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
     // set data-data informasi profil
     private void setupProfilData() {
         View itemNama = findViewById(R.id.item_nama_pengguna);
-        ((TextView) itemNama.findViewById(R.id.tv_label)).setText("Nama Pengguna :");
-        ((TextView) itemNama.findViewById(R.id.tv_value)).setText("Rakha");
-
         View itemEmail = findViewById(R.id.item_email);
-        ((TextView) itemEmail.findViewById(R.id.tv_label)).setText("Email :");
-        ((TextView) itemEmail.findViewById(R.id.tv_value)).setText("rakaatha@gmail.com");
-
         View itemTelepon = findViewById(R.id.item_telepon);
-        ((TextView) itemTelepon.findViewById(R.id.tv_label)).setText("No. Telepon :");
-        ((TextView) itemTelepon.findViewById(R.id.tv_value)).setText("-");
-
         View itemAlamat = findViewById(R.id.item_alamat);
+
+        ((TextView) itemNama.findViewById(R.id.tv_label)).setText("Nama Pengguna :");
+        ((TextView) itemEmail.findViewById(R.id.tv_label)).setText("Email :");
+        ((TextView) itemTelepon.findViewById(R.id.tv_label)).setText("No. Telepon :");
         ((TextView) itemAlamat.findViewById(R.id.tv_label)).setText("Alamat :");
-        ((TextView) itemAlamat.findViewById(R.id.tv_value)).setText("-");
+
+        // Tampilkan tulisan "Loading..." sementara data diambil
+        ((TextView) itemNama.findViewById(R.id.tv_value)).setText("Loading...");
+        ((TextView) itemEmail.findViewById(R.id.tv_value)).setText("Loading...");
+
+        // Tarik data profil dari API Django
+        ApiClient.getService().getProfil().enqueue(new Callback<ProfilResponse>() {
+            @Override
+            public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ProfilResponse profil = response.body();
+                    ((TextView) itemNama.findViewById(R.id.tv_value)).setText(profil.getNama());
+                    ((TextView) itemEmail.findViewById(R.id.tv_value)).setText(profil.getEmail());
+                    ((TextView) itemTelepon.findViewById(R.id.tv_value)).setText(profil.getNoTelepon());
+                    ((TextView) itemAlamat.findViewById(R.id.tv_value)).setText(profil.getAlamat());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfilResponse> call, Throwable t) {
+                Toast.makeText(ProfilActivity.this, "Gagal memuat profil", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // ini untuk setiap ikon dan label yg ada di menu halaman

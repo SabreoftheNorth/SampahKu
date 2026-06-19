@@ -8,11 +8,13 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -103,42 +105,50 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             isEmptyFields = true;
             editName.setError(getString(R.string.error_name_empty));
         }
-
         if (TextUtils.isEmpty(email)) {
             isEmptyFields = true;
             editEmail.setError(getString(R.string.error_email_empty));
         }
-
         if (TextUtils.isEmpty(password)) {
             isEmptyFields = true;
             editPassword.setError(getString(R.string.error_password_empty));
         }
-
         if (TextUtils.isEmpty(confirmPassword)) {
             isEmptyFields = true;
             editConfirmPassword.setError(getString(R.string.error_confirm_password_empty));
         }
 
         if (!isEmptyFields) {
-            // untuk mengecek 
-            // apakah password dan konfirmasi password sudah cocok cocok
             if (!password.equals(confirmPassword)) {
                 editConfirmPassword.setError(getString(R.string.error_password_mismatch));
                 return;
             }
 
-            // untuk menghubungkan ke backend ataupun database
-            // (untuk nanti saja)
-            Toast.makeText(this, getString(R.string.register_success), Toast.LENGTH_SHORT).show();
+            // Tampilkan notifikasi proses dimulai
+            Toast.makeText(this, "Mendaftarkan akun ke database...", Toast.LENGTH_SHORT).show();
 
-            // setelah registrasi sudah berhasil
-            // maka menggunakan inten untuk kembali ke halaman login
-            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            // Tembak API Register
+            ApiClient.getService().registerUser(name, email, password, "-", "-", 0)
+                    .enqueue(new Callback<ProfilResponse>() {
+                        @Override
+                        public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(RegisterActivity.this, "Register Sukses!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(RegisterActivity.this, "Gagal: Email mungkin sudah ada", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ProfilResponse> call, Throwable t) {
+                            Toast.makeText(RegisterActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
-
     // toggle password on/off
     // sama dgn yang ada di halaman login
     private void togglePasswordVisibility() {

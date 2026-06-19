@@ -8,6 +8,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Typeface; // apa perlu ya?
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -87,46 +91,42 @@ public class RewardActivity extends AppCompatActivity implements View.OnClickLis
     // ini utk melakukan set data untuk semua item reward
     // (tapi karena udh pakai <include>, kita override datanya di sini)
     private void setupRewardItems() {
-        // ITEM HADIAH TERAKHIR - Gopay
         View itemLast = findViewById(R.id.item_last_reward);
-        ((TextView) itemLast.findViewById(R.id.tv_reward_name)).setText("Gopay Coins Rp 10.000");
-        ((TextView) itemLast.findViewById(R.id.tv_reward_desc)).setText("Tukarkan Voucher di Aplikasi Gopay");
-        ((TextView) itemLast.findViewById(R.id.tv_reward_points)).setText("100 Poin");
-        ((ImageView) itemLast.findViewById(R.id.iv_reward_logo)).setImageResource(R.drawable.logo_gopay);
-        ((TextView) itemLast.findViewById(R.id.btn_tukar)).setText("Tukar Lagi");
-        itemLast.findViewById(R.id.btn_tukar).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bukaGopay();
-            }
-        });
-
-        // REKOMENDASI 1 - Gopay
         View item1 = findViewById(R.id.item_reward_1);
-        ((TextView) item1.findViewById(R.id.tv_reward_name)).setText("Gopay Coins Rp 10.000");
-        ((TextView) item1.findViewById(R.id.tv_reward_desc)).setText("Tukarkan Voucher di Aplikasi Gopay");
-        ((TextView) item1.findViewById(R.id.tv_reward_points)).setText("100 Poin");
-        ((ImageView) item1.findViewById(R.id.iv_reward_logo)).setImageResource(R.drawable.logo_gopay);
-        item1.findViewById(R.id.btn_tukar).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bukaGopay();
-            }
-        });
-
-        // REKOMENDASI 2 - Indomaret
         View item2 = findViewById(R.id.item_reward_2);
-        ((TextView) item2.findViewById(R.id.tv_reward_name)).setText("Voucher Indomaret Rp 10.000");
-        ((TextView) item2.findViewById(R.id.tv_reward_desc)).setText("Tukarkan Voucher di Indomaret Terdekat");
-        ((TextView) item2.findViewById(R.id.tv_reward_points)).setText("100 Poin");
-        ((ImageView) item2.findViewById(R.id.iv_reward_logo)).setImageResource(R.drawable.logo_indomaret);
-
-        // REKOMENDASI 3 - Alfamart
         View item3 = findViewById(R.id.item_reward_3);
-        ((TextView) item3.findViewById(R.id.tv_reward_name)).setText("Voucher Alfamart Rp 10.000");
-        ((TextView) item3.findViewById(R.id.tv_reward_desc)).setText("Tukarkan Voucher di Alfamart Terdekat");
-        ((TextView) item3.findViewById(R.id.tv_reward_points)).setText("100 Poin");
-        ((ImageView) item3.findViewById(R.id.iv_reward_logo)).setImageResource(R.drawable.logo_alfamart);
+
+        View[] itemViews = {itemLast, item1, item2, item3};
+
+        ApiClient.getService().getReward().enqueue(new Callback<List<RewardResponse>>() {
+            @Override
+            public void onResponse(Call<List<RewardResponse>> call, Response<List<RewardResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<RewardResponse> list = response.body();
+
+                    for (int i = 0; i < Math.min(list.size(), itemViews.length); i++) {
+                        RewardResponse reward = list.get(i);
+                        View itemView = itemViews[i];
+
+                        ((TextView) itemView.findViewById(R.id.tv_reward_name)).setText(reward.getNamaReward());
+                        ((TextView) itemView.findViewById(R.id.tv_reward_desc)).setText(reward.getDeskripsi());
+                        ((TextView) itemView.findViewById(R.id.tv_reward_points)).setText(reward.getPoinDibutuhkan() + " Poin");
+
+                        int resId = getResources().getIdentifier(reward.getLogoResourceName(), "drawable", getPackageName());
+                        if (resId != 0) {
+                            ((ImageView) itemView.findViewById(R.id.iv_reward_logo)).setImageResource(resId);
+                        }
+
+                        if (reward.getLogoResourceName().contains("gopay")) {
+                            itemView.findViewById(R.id.btn_tukar).setOnClickListener(v -> bukaGopay());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RewardResponse>> call, Throwable t) {}
+        });
     }
 
     /*

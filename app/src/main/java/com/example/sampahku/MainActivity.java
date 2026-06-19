@@ -8,6 +8,10 @@ import android.widget.Toast;
 import android.content.Intent; // untuk import fungsi Intent
 import android.graphics.Typeface;
 import android.widget.ImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import java.util.List;
 
 import android.net.Uri; // untuk intent yang implicit
 
@@ -106,55 +110,79 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // karena memakai <include> seperti sebelumnya, maka perlu
     // override datanya di sini:
     private void setupAktivitasItems() {
-        //Item 1: Kain/Cacahan
-        // item 2: Botol Plastik
-        // item 3: kertas koran
-        View itemBotol = findViewById(R.id.item_botol);
-        ((TextView) itemBotol.findViewById(R.id.tv_nama_sampah)).setText("Botol Plastik");
-        ((TextView) itemBotol.findViewById(R.id.tv_berat)).setText("0.50 kg");
-        ((TextView) itemBotol.findViewById(R.id.tv_poin)).setText("+100 poin");
-        ((TextView) itemBotol.findViewById(R.id.tv_tanggal_lokasi))
-                .setText("18 April 2026 • Mesin A - Supermarket");
-        View itemKertas = findViewById(R.id.item_kertas);
-        ((TextView) itemKertas.findViewById(R.id.tv_nama_sampah)).setText("Kertas Koran");
-        ((TextView) itemKertas.findViewById(R.id.tv_berat)).setText("0.5 kg");
-        ((TextView) itemKertas.findViewById(R.id.tv_poin)).setText("+50 poin");
-        ((TextView) itemKertas.findViewById(R.id.tv_tanggal_lokasi))
-                .setText("20 April 2026 • Mesin C - Kampus");
+        View itemBotol = findViewById(R.id.item_botol); // (di Statistik sesuaikan ID nya)
+        View itemKertas = findViewById(R.id.item_kertas); // (di Statistik sesuaikan ID nya)
+
+        ApiClient.getService().getRiwayat().enqueue(new Callback<List<RiwayatResponse>>() {
+            @Override
+            public void onResponse(Call<List<RiwayatResponse>> call, Response<List<RiwayatResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<RiwayatResponse> list = response.body();
+
+                    if (list.size() > 0) {
+                        RiwayatResponse r1 = list.get(0);
+                        ((TextView) itemBotol.findViewById(R.id.tv_nama_sampah)).setText(r1.getNamaSampah());
+                        ((TextView) itemBotol.findViewById(R.id.tv_berat)).setText(r1.getBerat() + " kg");
+                        ((TextView) itemBotol.findViewById(R.id.tv_poin)).setText("+" + r1.getPoinDidapat() + " poin");
+                        ((TextView) itemBotol.findViewById(R.id.tv_tanggal_lokasi)).setText(r1.getTanggalLokasi());
+                    }
+
+                    if (list.size() > 1) {
+                        RiwayatResponse r2 = list.get(1);
+                        ((TextView) itemKertas.findViewById(R.id.tv_nama_sampah)).setText(r2.getNamaSampah());
+                        ((TextView) itemKertas.findViewById(R.id.tv_berat)).setText(r2.getBerat() + " kg");
+                        ((TextView) itemKertas.findViewById(R.id.tv_poin)).setText("+" + r2.getPoinDidapat() + " poin");
+                        ((TextView) itemKertas.findViewById(R.id.tv_tanggal_lokasi)).setText(r2.getTanggalLokasi());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RiwayatResponse>> call, Throwable t) {}
+        });
     }
 
     //set data untuk 3 item edukasinya
     private void setupEdukasiItems() {
-        // video 1 - Cara Memilah Sampah Plastik (default)
         View item1 = findViewById(R.id.item_edukasi_1);
-        item1.findViewById(R.id.btn_tonton_video).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bukaYoutube("DOflL-Ha2Dk");
-            }
-        });
-
-        // video 2 - Cara Menyimpan Minyak Bekas
         View item2 = findViewById(R.id.item_edukasi_2);
-        ((TextView) item2.findViewById(R.id.tv_judul_edukasi)).setText("Cara Menyimpan Minyak Bekas");
-        ((TextView) item2.findViewById(R.id.tv_desc_edukasi))
-                .setText("Simpan minyak bekas di tempat yang tidak lembab");
-        item2.findViewById(R.id.btn_tonton_video).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bukaYoutube("F-v7UbnpXf8");
-            }
-        });
 
-        // video 3 - Cara memilah sampah plastik
-        View item3 = findViewById(R.id.item_edukasi_3);
-        ((TextView) item3.findViewById(R.id.tv_judul_edukasi)).setText("Cara memilah sampah plastik");
-        ((TextView) item3.findViewById(R.id.tv_desc_edukasi))
-                .setText("Pisahkan sesuai jenis agar poin maksimal");
-        item3.findViewById(R.id.btn_tonton_video).setOnClickListener(new View.OnClickListener() {
+        // Teks sementara selagi menunggu balasan dari Django
+        ((TextView) item1.findViewById(R.id.tv_judul_edukasi)).setText("Memuat video...");
+        ((TextView) item2.findViewById(R.id.tv_judul_edukasi)).setText("Memuat video...");
+
+        // Tembak API Edukasi
+        ApiClient.getService().getEdukasi().enqueue(new Callback<List<EdukasiResponse>>() {
             @Override
-            public void onClick(View v) {
-                bukaYoutube("nrANKUUHBf0");
+            public void onResponse(Call<List<EdukasiResponse>> call, Response<List<EdukasiResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<EdukasiResponse> list = response.body();
+
+                    // Mengisi Item Edukasi Pertama (jika data di database tersedia)
+                    if (list.size() > 0) {
+                        EdukasiResponse edukasi1 = list.get(0);
+                        ((TextView) item1.findViewById(R.id.tv_judul_edukasi)).setText(edukasi1.getJudul());
+                        ((TextView) item1.findViewById(R.id.tv_desc_edukasi)).setText(edukasi1.getDeskripsi());
+
+                        // Menempelkan ID YouTube ke tombol agar bisa ditonton
+                        item1.findViewById(R.id.btn_tonton_video).setOnClickListener(v -> bukaYoutube(edukasi1.getVideoIdYoutube()));
+                    }
+
+                    // Mengisi Item Edukasi Kedua (jika data di database tersedia)
+                    if (list.size() > 1) {
+                        EdukasiResponse edukasi2 = list.get(1);
+                        ((TextView) item2.findViewById(R.id.tv_judul_edukasi)).setText(edukasi2.getJudul());
+                        ((TextView) item2.findViewById(R.id.tv_desc_edukasi)).setText(edukasi2.getDeskripsi());
+
+                        // Menempelkan ID YouTube ke tombol agar bisa ditonton
+                        item2.findViewById(R.id.btn_tonton_video).setOnClickListener(v -> bukaYoutube(edukasi2.getVideoIdYoutube()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<EdukasiResponse>> call, Throwable t) {
+                // Bisa menampilkan Toast atau log jika gagal memuat data
             }
         });
     }
