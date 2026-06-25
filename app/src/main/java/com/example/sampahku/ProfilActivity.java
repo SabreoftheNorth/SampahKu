@@ -16,6 +16,8 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.EditText;
+import android.content.SharedPreferences;
+import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -63,8 +65,11 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void eksekusiUpdateProfil(String nama, String telepon, String alamat) {
-        // Asumsi ID user adalah 1 (Harus diganti dinamis menggunakan SharedPreferences nanti)
-        int currentUserId = 1;
+        // MENGAMBIL ID DARI BRANKAS
+        SharedPreferences sharedPref = getSharedPreferences("SampahkuPrefs", Context.MODE_PRIVATE);
+        int currentUserId = sharedPref.getInt("USER_ID", -1);
+
+        if (currentUserId == -1) return; // Cegah eksekusi jika tidak ada user login
 
         Toast.makeText(this, "Menyimpan...", Toast.LENGTH_SHORT).show();
 
@@ -181,8 +186,16 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         ((TextView) itemNama.findViewById(R.id.tv_value)).setText("Loading...");
         ((TextView) itemEmail.findViewById(R.id.tv_value)).setText("Loading...");
 
+        SharedPreferences sharedPref = getSharedPreferences("SampahkuPrefs", Context.MODE_PRIVATE);
+        int currentUserId = sharedPref.getInt("USER_ID", -1); // -1 adalah nilai default jika gagal/kosong
+
+        if (currentUserId == -1) {
+            Toast.makeText(this, "Sesi login tidak valid", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Tarik data profil dari API Django
-        ApiClient.getService().getProfil().enqueue(new Callback<ProfilResponse>() {
+        ApiClient.getService().getProfil(currentUserId).enqueue(new Callback<ProfilResponse>() {
             @Override
             public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -201,11 +214,61 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    private void konfirmasiHapusAkun() {
+        new AlertDialog.Builder(this)
+                .setTitle("Hapus Akun Permanen")
+                .setMessage("Apakah Anda yakin ingin menghapus akun ini? Semua poin dan data riwayat Anda akan musnah dan tidak bisa dikembalikan.")
+                .setPositiveButton("Ya, Hapus!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        eksekusiHapusAkun();
+                    }
+                })
+                .setNegativeButton("Batal", null)
+                .show();
+    }
+
+    private void eksekusiHapusAkun() {
+        // Ambil ID dari brankas memori
+        SharedPreferences sharedPref = getSharedPreferences("SampahkuPrefs", Context.MODE_PRIVATE);
+        int currentUserId = sharedPref.getInt("USER_ID", -1);
+
+        if (currentUserId == -1) return; // Cegah jika ID tidak ada
+
+        Toast.makeText(this, "Menghapus data ke server...", Toast.LENGTH_SHORT).show();
+
+        // Tembak API DELETE ke Django
+        ApiClient.getService().hapusProfil(currentUserId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                // Di Retrofit, response 204 (No Content) dihitung sebagai isSuccessful()
+                if (response.isSuccessful()) {
+                    Toast.makeText(ProfilActivity.this, "Akun berhasil dihapus selamanya.", Toast.LENGTH_LONG).show();
+
+                    // 1. Bersihkan memori login dari HP
+                    sharedPref.edit().clear().apply();
+
+                    // 2. Tendang user kembali ke halaman Login
+                    Intent intent = new Intent(ProfilActivity.this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(ProfilActivity.this, "Gagal menghapus akun.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(ProfilActivity.this, "Error Jaringan: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     // ini untuk setiap ikon dan label yg ada di menu halaman
     private void setupMenuItems() {
         setMenuItem(R.id.menu_pin,      R.drawable.ic_pin,    "Atur Pin Penukaran Reward");
         setMenuItem(R.id.menu_password, R.drawable.ic_lock,   "Ubah Password");
-        setMenuItem(R.id.menu_privasi,  R.drawable.ic_shield, "Pengaturan Privasi");
+        setMenuItem(R.id.menu_privasi,  R.drawable.ic_shield, "Hapus Akun Permanen");
         setMenuItem(R.id.menu_bahasa,   R.drawable.ic_globe,  "Bahasa");
         setMenuItem(R.id.menu_bantuan,  R.drawable.ic_help,   "Bantuan");
         setMenuItem(R.id.menu_keluar,   R.drawable.ic_logout, "Keluar");
@@ -216,9 +279,21 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
         menuKeluar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPref = getSharedPreferences("SampahkuPrefs", Context.MODE_PRIVATE);
+                sharedPref.edit().clear().apply();
+
                 Intent intent = new Intent(ProfilActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+            }
+        });
+
+        RelativeLayout menuHapus = findViewById(R.id.menu_privasi);
+        menuHapus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Jangan langsung hapus! Tampilkan konfirmasi peringatan dulu
+                konfirmasiHapusAkun();
             }
         });
 

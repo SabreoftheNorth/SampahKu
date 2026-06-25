@@ -2,6 +2,7 @@ package com.example.sampahku;
 
 import java.util.List;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -29,9 +30,12 @@ public interface ApiService {
             @Field("total_poin") int totalPoin
     );
 
-    // Mengambil profil user dengan ID 1 (Contoh)
-    @GET("api/pengguna/1/")
-    Call<ProfilResponse> getProfil();
+    @GET("api/pengguna/{id}/")
+    Call<ProfilResponse> getProfil(@Path("id") int id);
+
+    // Menghapus akun secara permanen
+    @DELETE("api/pengguna/{id}/")
+    Call<Void> hapusProfil(@Path("id") int id);
 
     // Mengambil daftar riwayat (menghasilkan List/Array)
     @GET("api/riwayat/")

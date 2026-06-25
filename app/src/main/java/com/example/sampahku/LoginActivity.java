@@ -15,6 +15,8 @@ import android.widget.Toast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.content.SharedPreferences;
+import android.content.Context;
 
 import android.net.Uri; // untuk bagian implicit intentnya
 
@@ -125,6 +127,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     } else {
                         Toast.makeText(LoginActivity.this, "Email atau password salah!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    if ("success".equals(response.body().getStatus())) {
+
+                        SharedPreferences sharedPref = getSharedPreferences("SampahkuPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt("USER_ID", response.body().getUserId());
+                        editor.apply();
+                        // ---------------------------------------------
+                        Toast.makeText(LoginActivity.this, "Selamat datang, " + response.body().getNama(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
 
