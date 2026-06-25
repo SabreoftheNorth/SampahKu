@@ -13,6 +13,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import java.util.List;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +27,71 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
     private LinearLayout navQr;
     private LinearLayout navStatistik;
     private LinearLayout navProfil;
+
+    private void tampilkanDialogEdit() {
+        // 1. Memanggil layout XML yang baru kita buat
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_profil, null);
+        EditText etNama = dialogView.findViewById(R.id.et_edit_nama);
+        EditText etTelepon = dialogView.findViewById(R.id.et_edit_telepon);
+        EditText etAlamat = dialogView.findViewById(R.id.et_edit_alamat);
+
+        // 2. Mengambil teks yang sedang tampil di layar untuk dijadikan teks awal (supaya user tidak mengetik dari nol)
+        View itemNama = findViewById(R.id.item_nama_pengguna);
+        View itemTelepon = findViewById(R.id.item_telepon);
+        View itemAlamat = findViewById(R.id.item_alamat);
+
+        etNama.setText(((TextView) itemNama.findViewById(R.id.tv_value)).getText().toString());
+        etTelepon.setText(((TextView) itemTelepon.findViewById(R.id.tv_value)).getText().toString());
+        etAlamat.setText(((TextView) itemAlamat.findViewById(R.id.tv_value)).getText().toString());
+
+        // 3. Membuat Pop-up Dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        builder.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String namaBaru = etNama.getText().toString().trim();
+                String teleponBaru = etTelepon.getText().toString().trim();
+                String alamatBaru = etAlamat.getText().toString().trim();
+
+                // Eksekusi API Update
+                eksekusiUpdateProfil(namaBaru, teleponBaru, alamatBaru);
+            }
+        });
+        builder.setNegativeButton("Batal", null);
+        builder.show();
+    }
+
+    private void eksekusiUpdateProfil(String nama, String telepon, String alamat) {
+        // Asumsi ID user adalah 1 (Harus diganti dinamis menggunakan SharedPreferences nanti)
+        int currentUserId = 1;
+
+        Toast.makeText(this, "Menyimpan...", Toast.LENGTH_SHORT).show();
+
+        // Memanggil API PATCH yang kita buat di ApiService
+        ApiClient.getService().updateProfil(currentUserId, nama, telepon, alamat)
+                .enqueue(new Callback<ProfilResponse>() {
+                    @Override
+                    public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            Toast.makeText(ProfilActivity.this, "Berhasil diperbarui!", Toast.LENGTH_SHORT).show();
+                            // Segarkan ulang data di layar dengan memanggil method setupProfilData() Anda lagi
+                            setupProfilData();
+
+                            // Opsional: Update nama di header (tulisan Rakha Atha Muhammad)
+                            TextView tvNamaHeader = findViewById(R.id.tv_nama);
+                            tvNamaHeader.setText(response.body().getNama());
+                        } else {
+                            Toast.makeText(ProfilActivity.this, "Gagal mengupdate.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ProfilResponse> call, Throwable t) {
+                        Toast.makeText(ProfilActivity.this, "Error Jaringan", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +111,13 @@ public class ProfilActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        // tombol edit profil (namun tidak ada fiturnya hahahaha)
+        // tombol edit profil
         ImageView ivEdit = findViewById(R.id.iv_edit);
         ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfilActivity.this,
-                        getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+                // Memanggil fungsi pop-up edit profil
+                tampilkanDialogEdit();
             }
         });
 

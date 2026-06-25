@@ -5,7 +5,9 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiService {
     @FormUrlEncoded
@@ -42,4 +44,16 @@ public interface ApiService {
     // Mengambil daftar reward
     @GET("api/reward/")
     Call<List<RewardResponse>> getReward();
+
+    // Mengubah data profil secara spesifik menggunakan PATCH
+    @FormUrlEncoded
+    @PATCH("api/pengguna/{id}/")
+    Call<ProfilResponse> updateProfil(
+            @Path("id") int id,          // ID pengguna yang ingin diubah
+            @Field("nama") String nama,
+            @Field("no_telepon") String noTelepon,
+            @Field("alamat") String alamat
+    );
+
+
 }

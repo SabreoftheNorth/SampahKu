@@ -99,56 +99,42 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String password = editPassword.getText().toString().trim();
         String confirmPassword = editConfirmPassword.getText().toString().trim();
 
-        boolean isEmptyFields = false;
-
-        if (TextUtils.isEmpty(name)) {
-            isEmptyFields = true;
-            editName.setError(getString(R.string.error_name_empty));
-        }
-        if (TextUtils.isEmpty(email)) {
-            isEmptyFields = true;
-            editEmail.setError(getString(R.string.error_email_empty));
-        }
-        if (TextUtils.isEmpty(password)) {
-            isEmptyFields = true;
-            editPassword.setError(getString(R.string.error_password_empty));
-        }
-        if (TextUtils.isEmpty(confirmPassword)) {
-            isEmptyFields = true;
-            editConfirmPassword.setError(getString(R.string.error_confirm_password_empty));
+        // Validasi input kosong (Gunakan logika validasi bawaan Anda)
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Harap isi semua data!", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        if (!isEmptyFields) {
-            if (!password.equals(confirmPassword)) {
-                editConfirmPassword.setError(getString(R.string.error_password_mismatch));
-                return;
-            }
+        if (!password.equals(confirmPassword)) {
+            editConfirmPassword.setError(getString(R.string.error_password_mismatch));
+            return;
+        }
 
-            // Tampilkan notifikasi proses dimulai
-            Toast.makeText(this, "Mendaftarkan akun ke database...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sedang membuat akun...", Toast.LENGTH_SHORT).show();
 
-            // Tembak API Register
-            ApiClient.getService().registerUser(name, email, password, "-", "-", 0)
-                    .enqueue(new Callback<ProfilResponse>() {
-                        @Override
-                        public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(RegisterActivity.this, "Register Sukses!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(RegisterActivity.this, "Gagal: Email mungkin sudah ada", Toast.LENGTH_SHORT).show();
-                            }
+        // Mengirim data ke Django (Menyediakan nilai default "-" untuk no_telepon dan alamat, serta 0 untuk total poin)
+        ApiClient.getService().registerUser(name, email, password, "-", "-", 0)
+                .enqueue(new Callback<ProfilResponse>() {
+                    @Override
+                    public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this, "Pendaftaran Berhasil! Silakan Login.", Toast.LENGTH_LONG).show();
+                            // Lempar kembali ke halaman Login
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Gagal: Email mungkin sudah digunakan.", Toast.LENGTH_SHORT).show();
                         }
+                    }
 
-                        @Override
-                        public void onFailure(Call<ProfilResponse> call, Throwable t) {
-                            Toast.makeText(RegisterActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
+                    @Override
+                    public void onFailure(Call<ProfilResponse> call, Throwable t) {
+                        Toast.makeText(RegisterActivity.this, "Error Jaringan: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
+
     // toggle password on/off
     // sama dgn yang ada di halaman login
     private void togglePasswordVisibility() {
